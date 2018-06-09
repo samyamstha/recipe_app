@@ -17,6 +17,8 @@ public class Recipe {
     private  String source;
     private String url;
     private String directions;
+
+    @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "recipe")
