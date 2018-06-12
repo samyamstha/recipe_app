@@ -19,7 +19,6 @@ public class IndexController {
     @RequestMapping({"","/","/home"})
     public String home(Model model){
         model.addAttribute("recipies", recipeService.getRecipes());
-        System.out.println("Recipe : " + recipeService.getRecipes());
         return  "index";
     }
 

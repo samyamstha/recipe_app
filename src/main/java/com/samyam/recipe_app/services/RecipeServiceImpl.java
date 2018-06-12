@@ -21,7 +21,6 @@ public class RecipeServiceImpl implements RecipeService {
         Set<Recipe> recipeSet = new HashSet<>();
         for (Recipe recipe : recipeRepository.findAll()) {
             recipeSet.add(recipe);
-            System.out.println("Recipe " + recipe.getDescription());
         }
         return recipeSet;
     }
