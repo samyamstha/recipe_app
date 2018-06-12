@@ -35,19 +35,17 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
 
 
-    public Recipe addIngredient(Ingredient ingredient){
-        ingredient.setRecipe(this);
-        this.ingredients.add(ingredient);
-        return this;
-    }
-
-
     @Lob
     private Byte[] Image;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
 
     public Long getId() {
         return id;
