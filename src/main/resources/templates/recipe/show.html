@@ -17,6 +17,8 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="com.samyam.recipe_app.domain.Recipe"*/-->
+
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -31,10 +33,8 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-9">
-                                <ul>
-                                    <li>cat one</li>
-                                    <li>cat two</li>
-                                    <li>cat three</li>
+                                <ul th:each="category : ${recipe.categories}">
+                                    <li th:text="${category.getDescription()}">category</li>
                                 </ul>
                             </div>
                         </div>
@@ -43,13 +43,15 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                                <p th:remove="all">30 min</p>
+                                <p th:text="${recipe.getPrepTime() + ' min'}"></p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>Easy</p>
+                                <p th:remove="all">Easy</p>
+                                <p th:text="${recipe.getDifficulty()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -57,13 +59,15 @@
                                 <h5>Cooktime:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                                <p th:remove="all">30 min</p>
+                                <p th:text="${recipe.getCookTime() + ' min'}"></p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Servings:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>4</p>
+                                <p th:remove="all">4</p>
+                                <p th:text="${recipe.getServings()}"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -71,13 +75,17 @@
                                 <h5>Source:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>30 min</p>
+                                <p th:remove="all">30 min</p>
+                                <p th:text="${recipe.getSource() + ' min'}"></p>
+
                             </div>
                             <div class="col-md-3">
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p>http://www.example.com</p>
+                                <p th:remove="all">http://www.example.com</p>
+                                <p th:text="${recipe.getUrl()}"></p>
+
                             </div>
                         </div>
                     </div>
@@ -89,10 +97,11 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <ul>
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
+                                <ul th:each="ingredient : ${recipe.ingredients}">
+                                    <li th:text="${ingredient.getAmount() +
+                                     ' ' + ingredient.uom.getDescription() +
+                                     ' - ' + ingredient.getDescription()}">1 Cup of milk
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -105,7 +114,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                <p th:remove="all">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+                                    commodo ligula eget
                                     dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                     nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                     quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
@@ -118,6 +128,7 @@
                                     ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
                                     eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
                                     ipsum.</p>
+                                <p th:text="${recipe.getDirections()}"></p>
                             </div>
                         </div>
                     </div>
@@ -129,7 +140,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                <p th:remove="all">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+                                    commodo ligula eget
                                     dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                     nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                     quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
@@ -142,6 +154,7 @@
                                     ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
                                     eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
                                     ipsum.</p>
+                                <p th:text="${recipe.getNotes().getRecipeNotes()}"></p>
                             </div>
                         </div>
                     </div>
