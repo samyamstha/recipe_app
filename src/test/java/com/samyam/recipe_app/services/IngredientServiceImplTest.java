@@ -2,11 +2,14 @@ package com.samyam.recipe_app.services;
 
 
 import com.samyam.recipe_app.commands.IngredientCommand;
+import com.samyam.recipe_app.converters.IngredientCommandToIngredient;
 import com.samyam.recipe_app.converters.IngredientToIngredientCommand;
+import com.samyam.recipe_app.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import com.samyam.recipe_app.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.samyam.recipe_app.domain.Ingredient;
 import com.samyam.recipe_app.domain.Recipe;
 import com.samyam.recipe_app.repositories.RecipeRepository;
+import com.samyam.recipe_app.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,22 +24,29 @@ import static org.mockito.Mockito.*;
 public class IngredientServiceImplTest {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
+    private final IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Mock
     RecipeRepository recipeRepository;
+
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
 
     IngredientService ingredientService;
 
     //init converters
     public IngredientServiceImplTest() {
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+        this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
+
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, recipeRepository);
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
+                recipeRepository, unitOfMeasureRepository);
     }
 
     @Test
