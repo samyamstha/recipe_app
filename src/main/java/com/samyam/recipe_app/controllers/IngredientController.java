@@ -1,6 +1,8 @@
 package com.samyam.recipe_app.controllers;
 
 import com.samyam.recipe_app.commands.IngredientCommand;
+import com.samyam.recipe_app.commands.RecipeCommand;
+import com.samyam.recipe_app.commands.UnitOfMeasureCommand;
 import com.samyam.recipe_app.services.IngredientService;
 import com.samyam.recipe_app.services.RecipeService;
 import com.samyam.recipe_app.services.UnitOfMeasureService;
@@ -62,4 +64,27 @@ public class IngredientController {
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
     }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
+    }
+
+
 }
