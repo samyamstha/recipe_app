@@ -19,6 +19,8 @@
 <body>
 <!--/*@thymesVar id="ingredient" type="com.samyam.recipe_app.commands.IngredientCommand"*/-->
 <div class="container-fluid" style="margin-top: 20px">
+    <a href="#" class="btn btn-primary" th:href="@{'/recipe/' + ${recipeId} + '/ingredients'}">Back to Ingredient
+        List</a>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">

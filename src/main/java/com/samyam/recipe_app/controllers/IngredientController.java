@@ -43,6 +43,9 @@ public class IngredientController {
     public String showRecipeIngredient(@PathVariable String recipeId,
                                        @PathVariable String id, Model model) {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+
+        //sending back the recipeId for the 'back to Ingredient List' button in the show ingredient page
+        model.addAttribute("recipeId", recipeId);
         return "recipe/ingredient/show";
     }
 
